@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+    <div class="hero" style="padding:3rem 1rem 2rem;">
+        <p class="hero-label">Sección 04</p>
+        <h1>Ejecución del <span>Modelo</span></h1>
+    </div>
+
+    <!-- Configuración -->
+    <div class="card">
+        <h2><span class="dot"></span>Parámetros del Modelo</h2>
+        <form method="POST" action="/modelo/">
+            <div class="form-row">
+                <label for="k">Número de clústeres (K):</label>
+                <input type="number" id="k" name="nclusters" min="2" max="6" value="{{ nclusters }}" />
+                <button class="btn" type="submit">Ejecutar K-Means</button>
+            </div>
+        </form>
+        <p>K justificado por el método del codo: <strong>K = 4</strong>. Puedes experimentar con valores entre 2 y 6.
+        </p>
+        <p>Inercia del modelo actual: <strong>{{ info.inercia }}</strong> &nbsp;·&nbsp; Total apps procesadas:
+            <strong>{{ info.total }}</strong></p>
+    </div>
+
+    <!-- Resumen por clúster -->
+    <div class="card">
+        <h2><span class="dot" style="background:var(--accent2)"></span>Resumen por Clúster</h2>
+        <div class="cluster-cards">
+            {% for row in info.resumen %}
+            {% set colors = ['#6C63FF','#FF6584','#43D9AD','#FFB347','#4FC3F7','#F06292'] %}
+            <div class="cl-card" style="border-top:3px solid {{ colors[row.Cluster % colors|length] }}">
+                <div class="cl-num" style="color:{{ colors[row.Cluster % colors|length] }}">Clúster {{ row.Cluster }}
+                </div>
+                <div class="cl-label">{{ row.Cantidad }} apps</div>
+                <div style="margin-top:.6rem;font-size:.78rem;color:var(--muted);">
+                    Rating: <strong style="color:var(--text)">{{ row.Rating_prom }}</strong><br>
+                    Reviews: <strong style="color:var(--text)">{{ "{:,.0f}".format(row.Reviews_prom) }}</strong><br>
+                    Installs: <strong style="color:var(--text)">{{ "{:,.0f}".format(row.Installs_prom) }}</strong><br>
+                    Precio: <strong style="color:var(--text)">${{ row.Price_prom }}</strong>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Gráfica dispersión -->
+    <div class="card">
+        <h2><span class="dot" style="background:var(--accent3)"></span>Visualización de Clústeres — Dispersión</h2>
+        <p style="margin-bottom:1rem;">Gráfica de dispersión coloreada por clúster (Reviews vs Installs). Las estrellas
+            blancas representan los <strong>centroides</strong> de cada grupo.</p>
+        <img class="chart-img" src="data:image/png;base64,{{ info.img_scatter }}" alt="Dispersión de clústeres" />
+    </div>
+
+    <!-- Gráfica centroides -->
+    <div class="card">
+        <h2><span class="dot" style="background:#FFB347"></span>Visualización de Centroides</h2>
+        <p style="margin-bottom:1rem;">Valores promedio (en escala original) de cada centroide para las 5 variables del
+            modelo.</p>
+        <img class="chart-img" src="data:image/png;base64,{{ info.img_centroides }}" alt="Centroides" />
+    </div>
+
+    <!-- Gráfica codo -->
+    <div class="card">
+        <h2><span class="dot" style="background:var(--accent1)"></span>Método del Codo — Selección de K</h2>
+        <p style="margin-bottom:1rem;">La línea verde punteada marca <strong>K = 4</strong>, donde la inercia deja de
+            disminuir de forma significativa.</p>
+        <img class="chart-img" src="data:image/png;base64,{{ info.img_codo }}" alt="Método del codo" />
+    </div>
+
+    <!-- Centroides tabla -->
+    <div class="card">
+        <h2><span class="dot" style="background:var(--accent2)"></span>Tabla de Centroides (Escala Original)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Clúster</th>
+                        <th>Rating</th>
+                        <th>Reviews</th>
+                        <th>Installs</th>
+                        <th>Price ($)</th>
+                        <th>SizeMB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in info.centroides %}
+                    {% set colors = ['#6C63FF','#FF6584','#43D9AD','#FFB347','#4FC3F7','#F06292'] %}
+                    <tr>
+                        <td><span class="badge"
+                                style="background:{{ colors[c.Cluster % colors|length] }}22;color:{{ colors[c.Cluster % colors|length] }}">C{{
+                                c.Cluster }}</span></td>
+                        <td>{{ c.Rating }}</td>
+                        <td>{{ "{:,.0f}".format(c.Reviews) }}</td>
+                        <td>{{ "{:,.0f}".format(c.Installs) }}</td>
+                        <td>${{ c.Price }}</td>
+                        <td>{{ c.SizeMB }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tabla de datos -->
+    <div class="card">
+        <h2><span class="dot" style="background:var(--accent3)"></span>Datos Procesados con Etiqueta de Clúster</h2>
+        <p style="margin-bottom:1rem;">Se muestran los primeros 200 registros. Cada app tiene asignado su clúster.</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>App</th>
+                        <th>Categoría</th>
+                        <th>Rating</th>
+                        <th>Reviews</th>
+                        <th>Installs</th>
+                        <th>Precio</th>
+                        <th>SizeMB</th>
+                        <th>Clúster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in info.tabla %}
+                    {% set colors = ['#6C63FF','#FF6584','#43D9AD','#FFB347','#4FC3F7','#F06292'] %}
+                    <tr>
+                        <td>{{ row.App }}</td>
+                        <td>{{ row.Category }}</td>
+                        <td>{{ row.Rating }}</td>
+                        <td>{{ "{:,}".format(row.Reviews) }}</td>
+                        <td>{{ "{:,}".format(row.Installs) }}</td>
+                        <td>${{ row.Price }}</td>
+                        <td>{{ row.SizeMB }}</td>
+                        <td>
+                            <span class="badge"
+                                style="background:{{ colors[row.Cluster % colors|length] }}22;color:{{ colors[row.Cluster % colors|length] }}">
+                                C{{ row.Cluster }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}

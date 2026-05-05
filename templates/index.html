@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+    <div class="hero">
+        <p class="hero-label">Aprendizaje No Supervisado · Proyecto Final</p>
+        <h1>Análisis de Clústeres<br><span>Play Store Dataset</span></h1>
+        <p>Segmentación de aplicaciones móviles usando el algoritmo K-Means. Descubre patrones ocultos en más de 1,000
+            apps clasificadas por rating, reseñas, instalaciones, precio y tamaño.</p>
+    </div>
+
+    <div class="grid2">
+        <a href="/descripcion/" style="text-decoration:none;">
+            <div class="card" style="cursor:pointer;transition:border-color .2s;"
+                onmouseover="this.style.borderColor='var(--accent1)'"
+                onmouseout="this.style.borderColor='var(--border)'">
+                <h2><span class="dot" style="background:var(--accent1)"></span>Descripción del Problema</h2>
+                <p>¿Por qué agrupar aplicaciones? ¿Qué insight aporta el clustering en el ecosistema de apps móviles?
+                </p>
+            </div>
+        </a>
+        <a href="/dataset/" style="text-decoration:none;">
+            <div class="card" style="cursor:pointer;transition:border-color .2s;"
+                onmouseover="this.style.borderColor='var(--accent2)'"
+                onmouseout="this.style.borderColor='var(--border)'">
+                <h2><span class="dot" style="background:var(--accent2)"></span>Explicación del Dataset</h2>
+                <p>1,000 aplicaciones con variables como rating, reseñas, instalaciones, precio y tamaño. Fuente y
+                    estructura explicada.</p>
+            </div>
+        </a>
+        <a href="/conceptos/" style="text-decoration:none;">
+            <div class="card" style="cursor:pointer;transition:border-color .2s;"
+                onmouseover="this.style.borderColor='var(--accent3)'"
+                onmouseout="this.style.borderColor='var(--border)'">
+                <h2><span class="dot" style="background:var(--accent3)"></span>Conceptos de K-Means</h2>
+                <p>Funcionamiento del algoritmo, método del codo, inercia y criterios de selección de K explicados paso
+                    a paso.</p>
+            </div>
+        </a>
+        <a href="/modelo/" style="text-decoration:none;">
+            <div class="card" style="cursor:pointer;transition:border-color .2s;"
+                onmouseover="this.style.borderColor='#FFB347'" onmouseout="this.style.borderColor='var(--border)'">
+                <h2><span class="dot" style="background:#FFB347"></span>Ejecución del Modelo</h2>
+                <p>Visualizaciones interactivas: dispersión de clústeres, centroides, método del codo y tabla de
+                    resultados completa.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="card" style="border-color:var(--accent1);">
+        <h2><span class="dot"></span>¿Cómo navegar?</h2>
+        <p>Usa el menú superior para recorrer las secciones en orden. Te recomendamos comenzar por
+            <strong>Descripción</strong> → <strong>Dataset</strong> → <strong>Conceptos</strong> →
+            <strong>Modelo</strong> → <strong>Interpretación</strong>.</p>
+        <p style="margin-top:.5rem;">En la sección <strong>Modelo</strong> puedes cambiar el número de clústeres (entre
+            2 y 6) y ver cómo cambian las agrupaciones en tiempo real.</p>
+    </div>
+</main>
+{% endblock %}
