@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <div class="hero" style="padding:3rem 1rem 2rem;">
+    <p class="hero-label">Sección 05</p>
+    <h1>Interpretación de <span>Resultados</span></h1>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Selección del Número de Clústeres</h2>
+    <p>Para determinar el valor óptimo de <strong>K</strong>, se aplicó el <strong>Método del Codo (Elbow Method)</strong>. Se ejecutó K-Means para K entre 1 y 10 y se graficó la inercia (WCSS) en función de K.</p>
+    <p>La gráfica muestra una caída pronunciada hasta K = 4, y a partir de ese punto la reducción de inercia es marginal. Por tanto, <strong>K = 4</strong> representa el balance óptimo entre complejidad del modelo y cohesión intra-clúster.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Descripción de Cada Clúster</h2>
+
+    <div style="margin-bottom:1.5rem;padding:1rem;border-left:3px solid #6C63FF;background:rgba(108,99,255,.07);border-radius:0 8px 8px 0;">
+      <strong style="color:#6C63FF;font-family:'Space Mono',monospace;">Clúster 0 — Apps Populares de Precio Moderado</strong>
+      <p style="margin-top:.5rem;">Apps con alto número de instalaciones y reseñas, precio medio (~$1.99) y rating sólido (~4.0). Representan el <em>mainstream</em> del mercado: apps exitosas que han encontrado un balance entre gratuidad parcial y monetización. Incluyen mayoritariamente categorías de Productividad, Herramientas y Entretenimiento.</p>
+    </div>
+
+    <div style="margin-bottom:1.5rem;padding:1rem;border-left:3px solid #FF6584;background:rgba(255,101,132,.07);border-radius:0 8px 8px 0;">
+      <strong style="color:#FF6584;font-family:'Space Mono',monospace;">Clúster 1 — Apps Premium de Nicho</strong>
+      <p style="margin-top:.5rem;">Apps con precio alto ($4.99), pocas instalaciones y pocas reseñas. Son aplicaciones especializadas dirigidas a segmentos muy específicos. Su rating suele ser bueno (usuarios más comprometidos), pero no tienen masividad. Ejemplo: herramientas profesionales, apps educativas avanzadas.</p>
+    </div>
+
+    <div style="margin-bottom:1.5rem;padding:1rem;border-left:3px solid #43D9AD;background:rgba(67,217,173,.07);border-radius:0 8px 8px 0;">
+      <strong style="color:#43D9AD;font-family:'Space Mono',monospace;">Clúster 2 — Apps Gratuitas de Gran Escala</strong>
+      <p style="margin-top:.5rem;">Apps con precio $0 (gratuitas), altísimas instalaciones y gran cantidad de reseñas. Son aplicaciones masivas que monetizan a través de publicidad o compras in-app. Rating varía más porque al tener mayor exposición, reciben más retroalimentación diversa. Dominan Social, Juegos y Entretenimiento.</p>
+    </div>
+
+    <div style="margin-bottom:1rem;padding:1rem;border-left:3px solid #FFB347;background:rgba(255,179,71,.07);border-radius:0 8px 8px 0;">
+      <strong style="color:#FFB347;font-family:'Space Mono',monospace;">Clúster 3 — Apps Medianas con Alta Calidad</strong>
+      <p style="margin-top:.5rem;">Apps con instalaciones medias, precio accesible (~$0.99–$1.99) y rating superior al promedio. Son apps bien evaluadas que tienen una base de usuarios moderada pero leal. Representan productos bien desarrollados que no son virales pero tienen excelente retención. Categorías frecuentes: Health, Finance, Education.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent3)"></span>Patrones Identificados</h2>
+    <ul>
+      <li>Existe una <strong>correlación entre precio = 0 y alto volumen de instalaciones</strong>: las apps gratuitas dominan en masa de usuarios.</li>
+      <li>Las apps premium (precio alto) compensan con <strong>calidad percibida</strong> (rating alto) pero tienen audiencias más pequeñas.</li>
+      <li>El <strong>tamaño de la app (SizeMB)</strong> no es un diferenciador fuerte entre clústeres — apps de todos los tamaños aparecen en cada grupo.</li>
+      <li>El <strong>número de reseñas</strong> es el mejor indicador de popularidad real, más que las instalaciones declaradas.</li>
+      <li>Las categorías no determinan el clúster: una app de Educación puede caer en Clúster 2 (gratuita masiva) o Clúster 1 (premium de nicho).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:#FFB347"></span>Conclusiones del Ejercicio</h2>
+    <ul>
+      <li>K-Means logró segmentar el dataset en 4 grupos <strong>estadísticamente coherentes y con interpretación de negocio clara</strong>.</li>
+      <li>El método del codo proporcionó una justificación objetiva para seleccionar K = 4 sin sesgos subjetivos.</li>
+      <li>La normalización con StandardScaler fue <strong>esencial</strong>: sin ella, la variable Installs habría dominado el espacio de clustering.</li>
+      <li>Las visualizaciones confirman que los grupos están <strong>bien separados</strong> en el plano Reviews vs Installs, lo que valida la calidad del clustering.</li>
+      <li>Este análisis puede apoyar a <strong>desarrolladores</strong> para posicionar su app: si buscan masa de usuarios, el modelo Clúster 2 (gratis) es la referencia; si buscan monetización directa, Clúster 1 ofrece la hoja de ruta.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-color:var(--accent1);">
+    <h2><span class="dot"></span>Reflexión Final</h2>
+    <p>El clustering no supervisa ni predice — <strong>descubre</strong>. Este ejercicio demuestra que con solo 5 variables numéricas se pueden extraer segmentos accionables del mercado de apps. La combinación de K-Means + método del codo + visualización ofrece un pipeline completo y reproducible para cualquier dataset similar.</p>
+    <p style="margin-top:.8rem;">La interfaz web construida en Flask permite experimentar con distintos valores de K y observar en tiempo real cómo cambian los grupos, lo que facilita la comprensión intuitiva del algoritmo.</p>
+  </div>
+</main>
+{% endblock %}
