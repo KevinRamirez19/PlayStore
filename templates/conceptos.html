@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <div class="hero" style="padding:3rem 1rem 2rem;">
+    <p class="hero-label">Sección 03</p>
+    <h1>Conceptos de <span>K-Means</span></h1>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>¿Qué es K-Means?</h2>
+    <p>K-Means es un algoritmo de <strong>aprendizaje no supervisado</strong> que agrupa datos en <em>K</em> clústeres, minimizando la distancia intra-clúster. Es uno de los algoritmos de clustering más populares por su simplicidad y eficiencia.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Funcionamiento Paso a Paso</h2>
+    <ol style="list-style:decimal;padding-left:1.4rem;">
+      <li style="margin-bottom:.8rem;color:var(--muted)"><strong style="color:var(--text)">Inicialización:</strong> Se eligen K centroides de forma aleatoria (o con K-Means++).</li>
+      <li style="margin-bottom:.8rem;color:var(--muted)"><strong style="color:var(--text)">Asignación:</strong> Cada punto se asigna al centroide más cercano (distancia euclidiana).</li>
+      <li style="margin-bottom:.8rem;color:var(--muted)"><strong style="color:var(--text)">Actualización:</strong> Se recalcula cada centroide como la media de los puntos asignados.</li>
+      <li style="margin-bottom:.8rem;color:var(--muted)"><strong style="color:var(--text)">Convergencia:</strong> Se repiten pasos 2 y 3 hasta que los centroides no cambian o se alcanza el máximo de iteraciones.</li>
+    </ol>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2><span class="dot" style="background:var(--accent3)"></span>Conceptos Clave</h2>
+      <ul>
+        <li><strong>Centroide:</strong> Punto central (promedio) de cada clúster.</li>
+        <li><strong>Inercia (WCSS):</strong> Suma de distancias al cuadrado de cada punto a su centroide.</li>
+        <li><strong>K:</strong> Número de clústeres, definido por el usuario.</li>
+        <li><strong>Distancia Euclidiana:</strong> Métrica de similitud usada por defecto.</li>
+        <li><strong>StandardScaler:</strong> Normalización necesaria antes del clustering.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2><span class="dot" style="background:#FFB347"></span>Ventajas y Limitaciones</h2>
+      <ul>
+        <li>✅ Simple, rápido y escalable.</li>
+        <li>✅ Funciona bien con clusters esféricos y bien separados.</li>
+        <li>⚠️ Sensible a la escala → requiere normalización.</li>
+        <li>⚠️ Resultado varía con la inicialización aleatoria.</li>
+        <li>⚠️ Hay que definir K a priori (no lo descubre solo).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent1)"></span>Método del Codo</h2>
+    <p>Como K debe definirse antes de ejecutar el algoritmo, usamos el <strong>método del codo (Elbow Method)</strong> para justificarlo.</p>
+    <p>Consiste en ejecutar K-Means para valores de K desde 1 hasta N (ej. 10) y graficar la <strong>inercia</strong> (WCSS) en función de K. A medida que K crece, la inercia disminuye. El punto donde la curva "hace un codo" (deja de disminuir significativamente) indica el K óptimo.</p>
+    <ul>
+      <li>Si la curva cae bruscamente y luego se aplana → ese punto es el codo.</li>
+      <li>K muy pequeño: grupos demasiado heterogéneos.</li>
+      <li>K muy grande: overfitting, sin interpretación real.</li>
+    </ul>
+    <p>En nuestro dataset, el análisis del codo apunta a <strong>K = 4</strong> como valor justificado, visible claramente en la gráfica de la sección Modelo.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Normalización con StandardScaler</h2>
+    <p>Antes de aplicar K-Means se escalan todas las features con <code>StandardScaler</code> de scikit-learn. Esto transforma cada variable a <strong>media = 0</strong> y <strong>desviación estándar = 1</strong>, evitando que variables con rangos grandes (como <code>Installs</code>) dominen el cálculo de distancias sobre variables con rangos pequeños (como <code>Rating</code>).</p>
+  </div>
+</main>
+{% endblock %}
