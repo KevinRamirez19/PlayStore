@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+
 <main>
     <div class="hero" style="padding:3rem 1rem 2rem;">
         <p class="hero-label">Sección 04</p>
         <h1>Ejecución del <span>Modelo</span></h1>
     </div>
 
-    <!-- Configuración -->
     <div class="card">
         <h2><span class="dot"></span>Parámetros del Modelo</h2>
         <form method="POST" action="/modelo/">
@@ -22,7 +22,7 @@
             <strong>{{ info.total }}</strong></p>
     </div>
 
-    <!-- Resumen por clúster -->
+
     <div class="card">
         <h2><span class="dot" style="background:var(--accent2)"></span>Resumen por Clúster</h2>
         <div class="cluster-cards">
@@ -43,7 +43,6 @@
         </div>
     </div>
 
-    <!-- Gráfica dispersión -->
     <div class="card">
         <h2><span class="dot" style="background:var(--accent3)"></span>Visualización de Clústeres — Dispersión</h2>
         <p style="margin-bottom:1rem;">Gráfica de dispersión coloreada por clúster (Reviews vs Installs). Las estrellas
@@ -51,7 +50,7 @@
         <img class="chart-img" src="data:image/png;base64,{{ info.img_scatter }}" alt="Dispersión de clústeres" />
     </div>
 
-    <!-- Gráfica centroides -->
+
     <div class="card">
         <h2><span class="dot" style="background:#FFB347"></span>Visualización de Centroides</h2>
         <p style="margin-bottom:1rem;">Valores promedio (en escala original) de cada centroide para las 5 variables del
@@ -59,7 +58,6 @@
         <img class="chart-img" src="data:image/png;base64,{{ info.img_centroides }}" alt="Centroides" />
     </div>
 
-    <!-- Gráfica codo -->
     <div class="card">
         <h2><span class="dot" style="background:var(--accent1)"></span>Método del Codo — Selección de K</h2>
         <p style="margin-bottom:1rem;">La línea verde punteada marca <strong>K = 4</strong>, donde la inercia deja de
@@ -67,7 +65,7 @@
         <img class="chart-img" src="data:image/png;base64,{{ info.img_codo }}" alt="Método del codo" />
     </div>
 
-    <!-- Centroides tabla -->
+
     <div class="card">
         <h2><span class="dot" style="background:var(--accent2)"></span>Tabla de Centroides (Escala Original)</h2>
         <div class="table-wrap">
@@ -101,7 +99,7 @@
         </div>
     </div>
 
-    <!-- Tabla de datos -->
+
     <div class="card">
         <h2><span class="dot" style="background:var(--accent3)"></span>Datos Procesados con Etiqueta de Clúster</h2>
         <p style="margin-bottom:1rem;">Se muestran los primeros 200 registros. Cada app tiene asignado su clúster.</p>
