@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <div class="hero" style="padding:3rem 1rem 2rem;">
+    <p class="hero-label">Sección 02</p>
+    <h1>Explicación del <span>Dataset</span></h1>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Origen y Composición</h2>
+    <p>El dataset <code>playstore_limpio.csv</code> es una versión depurada de un conjunto de datos de Google Play Store. Contiene <strong>1,000 registros</strong> de aplicaciones con las siguientes columnas:</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Variables del Dataset</h2>
+    <div class="table-wrap" style="max-height:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable</th><th>Tipo</th><th>Descripción</th><th>Uso en K-Means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>App</code></td><td>Texto</td><td>Nombre de la aplicación</td><td>Identificador (no usado como feature)</td></tr>
+          <tr><td><code>Category</code></td><td>Texto</td><td>Categoría (Education, Game, etc.)</td><td>Referencia (no feature numérica)</td></tr>
+          <tr><td><code>Rating</code></td><td>Float</td><td>Calificación promedio (1–5)</td><td>✅ Feature de clustering</td></tr>
+          <tr><td><code>Reviews</code></td><td>Integer</td><td>Número de reseñas de usuarios</td><td>✅ Feature de clustering</td></tr>
+          <tr><td><code>Installs</code></td><td>Integer</td><td>Número de instalaciones</td><td>✅ Feature de clustering</td></tr>
+          <tr><td><code>Price</code></td><td>Float</td><td>Precio en USD (0 = gratuita)</td><td>✅ Feature de clustering</td></tr>
+          <tr><td><code>SizeMB</code></td><td>Float</td><td>Tamaño en megabytes</td><td>✅ Feature de clustering</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2><span class="dot" style="background:var(--accent3)"></span>Proceso de Limpieza</h2>
+      <ul>
+        <li>Columna <code>Price</code>: valores con símbolo <code>$</code> normalizados.</li>
+        <li>Columna <code>SizeMB</code>: valor <code>"Varies"</code> reemplazado por la mediana.</li>
+        <li>Valores nulos imputados con mediana por columna.</li>
+        <li><code>Reviews</code> e <code>Installs</code> convertidos a tipo entero.</li>
+        <li>Sin duplicados en el dataset final.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2><span class="dot" style="background:#FFB347"></span>Estadísticas Generales</h2>
+      <ul>
+        <li><strong>Total registros:</strong> 1,000</li>
+        <li><strong>Rating promedio:</strong> 4.0 / 5.0</li>
+        <li><strong>Precio más común:</strong> $1.99</li>
+        <li><strong>Tamaño mediano:</strong> 53 MB</li>
+        <li><strong>Categorías:</strong> Education, Game, Tools, Health, Productivity, Finance, Social, Entertainment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Preprocesamiento para K-Means</h2>
+    <p>K-Means es sensible a la escala de las variables. Variables como <code>Installs</code> (que puede llegar a 1,000,000) dominarían sobre <code>Rating</code> (rango 1–5) sin normalización. Por eso se aplica <strong>StandardScaler</strong> antes del clustering, convirtiendo cada variable a media 0 y desviación estándar 1.</p>
+    <p>Las 5 features usadas son: <code>Rating</code>, <code>Reviews</code>, <code>Installs</code>, <code>Price</code>, <code>SizeMB</code>.</p>
+  </div>
+</main>
+{% endblock %}
