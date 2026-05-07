@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <div class="hero" style="padding:3rem 1rem 2rem;">
+    <p class="hero-label">Sección 01</p>
+    <h1>Descripción del <span>Problema</span></h1>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>Contexto</h2>
+    <p>El mercado de aplicaciones móviles crece de forma exponencial. Google Play Store alberga millones de apps de distintas categorías, precios, tamaños y niveles de popularidad. Para desarrolladores, analistas y empresas, comprender qué <strong>grupos naturales</strong> existen entre las aplicaciones es clave para tomar decisiones estratégicas.</p>
+    <p>Este proyecto aplica el algoritmo de clustering <strong>K-Means</strong> sobre un dataset de 1,000 aplicaciones de Play Store para identificar segmentos similares sin supervisión etiquetada.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Problema a Resolver</h2>
+    <p>¿Es posible agrupar automáticamente las aplicaciones de Play Store en segmentos coherentes basándose únicamente en sus características numéricas?</p>
+    <ul>
+      <li>Identificar apps de bajo costo y alta popularidad vs apps de nicho premium.</li>
+      <li>Detectar grupos según el nivel de interacción de usuarios (reviews, installs).</li>
+      <li>Apoyar decisiones de precio, categoría y estrategia de lanzamiento.</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2><span class="dot" style="background:var(--accent3)"></span>Objetivo General</h2>
+      <p>Implementar K-Means para segmentar las aplicaciones en grupos homogéneos y extraer conclusiones sobre los patrones presentes en el dataset de Play Store.</p>
+    </div>
+    <div class="card">
+      <h2><span class="dot" style="background:#FFB347"></span>Objetivos Específicos</h2>
+      <ul>
+        <li>Aplicar el método del codo para seleccionar K óptimo.</li>
+        <li>Visualizar los clústeres e interpretar cada grupo.</li>
+        <li>Presentar una interfaz web funcional e interactiva.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--accent2)"></span>Justificación del Enfoque de Aprendizaje No Supervisado</h2>
+    <p>El dataset no viene con etiquetas de "tipo de app" más allá de la categoría. K-Means permite encontrar agrupaciones basadas en comportamiento real (instalaciones, reseñas, precio) y no solo en la categoría declarada. Esto puede revelar, por ejemplo, que apps de Educación y Productividad se comportan de forma muy similar en términos de adopción.</p>
+  </div>
+</main>
+{% endblock %}
