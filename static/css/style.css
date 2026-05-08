@@ -27,14 +27,14 @@
     --c5: #FF6D00;   
 }
 
-/* ── Reset ── */
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* ── Base ── */
+
 body {
     font-family: 'Sora', sans-serif;
     background: var(--bg);
@@ -353,4 +353,9 @@ footer {
     color: var(--muted);
     font-size: .8rem;
     margin-top: 2rem;
+}
+.nav-brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

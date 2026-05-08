@@ -14,17 +14,22 @@
 <body>
 
     <nav>
-        <a class="nav-brand" href="/">⬡ K-MEANS</a>
-        <div class="nav-links">
-            <a href="/" {% if request.path=='/' %}class="active" {% endif %}>Inicio</a>
-            <a href="/descripcion/" {% if request.path=='/descripcion/' %}class="active" {% endif %}>Descripción</a>
-            <a href="/dataset/" {% if request.path=='/dataset/' %}class="active" {% endif %}>Dataset</a>
-            <a href="/conceptos/" {% if request.path=='/conceptos/' %}class="active" {% endif %}>Conceptos</a>
-            <a href="/modelo/" {% if request.path=='/modelo/' %}class="active" {% endif %}>Modelo</a>
-            <a href="/interpretacion/" {% if request.path=='/interpretacion/' %}class="active" {% endif
-                %}>Interpretación</a>
-        </div>
-    </nav>
+    <div class="nav-brand-wrapper">
+        <img src="/static/assets/logo.png" 
+             alt="PlayAnalytics logo"
+             style="width:32px;height:32px;border-radius:20px;object-fit:cover;">
+        <a class="nav-brand" href="/">K-MEANS</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="/" {% if request.path=='/' %}class="active" {% endif %}>Inicio</a>
+        <a href="/descripcion/" {% if request.path=='/descripcion/' %}class="active" {% endif %}>Descripción</a>
+        <a href="/dataset/" {% if request.path=='/dataset/' %}class="active" {% endif %}>Dataset</a>
+        <a href="/conceptos/" {% if request.path=='/conceptos/' %}class="active" {% endif %}>Conceptos</a>
+        <a href="/modelo/" {% if request.path=='/modelo/' %}class="active" {% endif %}>Modelo</a>
+        <a href="/interpretacion/" {% if request.path=='/interpretacion/' %}class="active" {% endif %}>Interpretación</a>
+    </div>
+</nav>
 
     {% block content %}{% endblock %}
 
